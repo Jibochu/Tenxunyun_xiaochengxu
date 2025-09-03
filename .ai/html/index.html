@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二维码生成器 - 首页</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+      .tab-active {
+        border-bottom: 3px solid #3b82f6;
+        color: #3b82f6;
+        font-weight: 600;
+      }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-md">
+        <header class="text-center mb-8">
+            <h1 class="text-2xl font-bold text-gray-800">二维码生成器</h1>
+            <p class="text-gray-600 mt-2">上传二维码或输入WiFi信息，生成带广告的新二维码</p>
+        </header>
+
+        <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+            <div class="flex border-b mb-6">
+                <button id="uploadTab" class="tab-active px-4 py-2 text-sm font-medium">上传二维码</button>
+                <button id="wifiTab" class="px-4 py-2 text-sm font-medium text-gray-500">输入WiFi信息</button>
+            </div>
+
+            <div id="uploadSection">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="qr-upload">
+                        上传二维码图片
+                    </label>
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                        <i class="fas fa-qrcode text-4xl text-gray-400 mb-2"></i>
+                        <p class="text-gray-500 mb-2">拖放图片到这里或点击上传</p>
+                        <input type="file" id="qr-upload" class="hidden" accept="image/*">
+                        <button onclick="document.getElementById('qr-upload').click()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                            选择文件
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="wifiSection" class="hidden">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="ssid">
+                        WiFi名称 (SSID)
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="ssid" type="text" placeholder="输入WiFi名称">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                        WiFi密码
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="输入WiFi密码">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">
+                        加密类型
+                    </label>
+                    <div class="flex space-x-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" class="form-radio" name="encryption" value="WPA" checked>
+                            <span class="ml-2">WPA/WPA2</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" class="form-radio" name="encryption" value="WEP">
+                            <span class="ml-2">WEP</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" class="form-radio" name="encryption" value="none">
+                            <span class="ml-2">无加密</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <button id="nextBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg mt-4">
+                下一步
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // 标签切换逻辑
+        document.getElementById('uploadTab').addEventListener('click', function() {
+            this.classList.add('tab-active');
+            this.classList.remove('text-gray-500');
+            document.getElementById('wifiTab').classList.remove('tab-active');
+            document.getElementById('wifiTab').classList.add('text-gray-500');
+            document.getElementById('uploadSection').classList.remove('hidden');
+            document.getElementById('wifiSection').classList.add('hidden');
+        });
+
+        document.getElementById('wifiTab').addEventListener('click', function() {
+            this.classList.add('tab-active');
+            this.classList.remove('text-gray-500');
+            document.getElementById('uploadTab').classList.remove('tab-active');
+            document.getElementById('uploadTab').classList.add('text-gray-500');
+            document.getElementById('wifiSection').classList.remove('hidden');
+            document.getElementById('uploadSection').classList.add('hidden');
+        });
+
+        // 下一步按钮逻辑
+        document.getElementById('nextBtn').addEventListener('click', function() {
+            const isUploadTabActive = !document.getElementById('uploadSection').classList.contains('hidden');
+            
+            if(isUploadTabActive) {
+                const fileInput = document.getElementById('qr-upload');
+                if(fileInput.files.length === 0) {
+                    alert('请先上传二维码图片');
+                    return;
+                }
+            } else {
+                const ssid = document.getElementById('ssid').value;
+                if(!ssid) {
+                    alert('请输入WiFi名称');
+                    return;
+                }
+            }
+            
+            // 跳转到广告配置页
+            window.location.href = 'ad-config.html';
+        });
+    </script>
+</body>
+</html>
+  

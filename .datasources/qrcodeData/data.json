@@ -1,0 +1,22 @@
+
+  [
+    {
+      "_id": "1",
+      "codeId": "QR001",
+      "type": "WiFi",
+      "originalContent": "WIFI:S:MyWiFi;T:WPA;P:12345678;;",
+      "createTime": 1756913692961,
+      "createdAt": 1756913692961,
+      "updatedAt": 1756913692961
+    },
+    {
+      "_id": "2",
+      "codeId": "QR002",
+      "type": "URL",
+      "originalContent": "https://example.com",
+      "createTime": 1756913692962,
+      "createdAt": 1756913692962,
+      "updatedAt": 1756913692962
+    }
+  ]
+  

@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二维码生成器 - 结果</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-md">
+        <header class="text-center mb-8">
+            <h1 class="text-2xl font-bold text-gray-800">生成结果</h1>
+            <p class="text-gray-600 mt-2">您的带广告二维码已生成</p>
+        </header>
+
+        <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+            <div class="flex justify-center mb-6">
+                <div class="text-center">
+                    <div class="mb-4">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://example.com" alt="生成的二维码" class="mx-auto">
+                    </div>
+                    <p class="text-sm text-gray-500">扫描二维码可访问原始内容</p>
+                </div>
+            </div>
+
+            <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                <h3 class="font-bold text-gray-700 mb-2">广告内容预览</h3>
+                <p class="text-gray-600 mb-2">特别优惠：新用户首单立减50元！</p>
+                <img src="https://images.unsplash.com/photo-1498837167922-d504275e457c?w=500" alt="广告图片" class="w-full rounded mt-2">
+            </div>
+
+            <div class="flex space-x-4">
+                <button class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-4 rounded-lg">
+                    <i class="fas fa-download mr-2"></i>保存
+                </button>
+                <button class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg">
+                    <i class="fas fa-share-alt mr-2"></i>分享
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-lg font-bold text-gray-800 mb-4">生成新二维码</h2>
+            <button onclick="window.location.href='index.html'" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg">
+                <i class="fas fa-plus mr-2"></i>创建新的二维码
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+  

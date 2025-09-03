@@ -1,0 +1,29 @@
+
+  {
+    "name": "qrcodeData",
+    "title": "二维码数据模型",
+    "schemas": [
+      {
+        "name": "codeId",
+        "title": "二维码ID",
+        "type": "String"
+      },
+      {
+        "name": "type",
+        "title": "类型",
+        "type": "String"
+      },
+      {
+        "name": "originalContent",
+        "title": "原始内容",
+        "type": "String"
+      },
+      {
+        "name": "createTime",
+        "title": "创建时间",
+        "type": "DateTime",
+        "format": "timestamp-ms"
+      }
+    ]
+  }
+  

@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二维码生成器 - 广告配置</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-md">
+        <header class="text-center mb-8">
+            <h1 class="text-2xl font-bold text-gray-800">添加广告内容</h1>
+            <p class="text-gray-600 mt-2">为您的二维码添加广告信息</p>
+        </header>
+
+        <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="ad-type">
+                    广告类型
+                </label>
+                <select id="ad-type" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="text">文本广告</option>
+                    <option value="image">图片广告</option>
+                    <option value="both">文本+图片</option>
+                </select>
+            </div>
+
+            <div id="text-ad-section">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="ad-text">
+                        广告文本
+                    </label>
+                    <textarea id="ad-text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-24" placeholder="输入广告文本内容"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="text-color">
+                        文本颜色
+                    </label>
+                    <input type="color" id="text-color" value="#000000" class="w-full h-10">
+                </div>
+            </div>
+
+            <div id="image-ad-section" class="hidden">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="ad-image">
+                        广告图片
+                    </label>
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                        <i class="fas fa-image text-4xl text-gray-400 mb-2"></i>
+                        <p class="text-gray-500 mb-2">拖放图片到这里或点击上传</p>
+                        <input type="file" id="ad-image" class="hidden" accept="image/*">
+                        <button onclick="document.getElementById('ad-image').click()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                            选择图片
+                        </button>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="image-size">
+                        图片大小
+                    </label>
+                    <select id="image-size" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="small">小</option>
+                        <option value="medium" selected>中</option>
+                        <option value="large">大</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="ad-position">
+                    广告位置
+                </label>
+                <select id="ad-position" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="top">二维码上方</option>
+                    <option value="bottom" selected>二维码下方</option>
+                    <option value="left">二维码左侧</option>
+                    <option value="right">二维码右侧</option>
+                </select>
+            </div>
+
+            <button id="generateBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg">
+                生成二维码
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // 广告类型切换逻辑
+        document.getElementById('ad-type').addEventListener('change', function() {
+            const value = this.value;
+            const textSection = document.getElementById('text-ad-section');
+            const imageSection = document.getElementById('image-ad-section');
+
+            if(value === 'text') {
+                textSection.classList.remove('hidden');
+                imageSection.classList.add('hidden');
+            } else if(value === 'image') {
+                textSection.classList.add('hidden');
+                imageSection.classList.remove('hidden');
+            } else { // both
+                textSection.classList.remove('hidden');
+                imageSection.classList.remove('hidden');
+            }
+        });
+
+        // 生成按钮逻辑
+        document.getElementById('generateBtn').addEventListener('click', function() {
+            const adType = document.getElementById('ad-type').value;
+            
+            if(adType === 'text' || adType === 'both') {
+                const adText = document.getElementById('ad-text').value;
+                if(!adText) {
+                    alert('请输入广告文本内容');
+                    return;
+                }
+            }
+            
+            if(adType === 'image' || adType === 'both') {
+                const adImage = document.getElementById('ad-image').files;
+                if(adImage.length === 0) {
+                    alert('请上传广告图片');
+                    return;
+                }
+            }
+            
+            // 跳转到结果页
+            window.location.href = 'result.html';
+        });
+    </script>
+</body>
+</html>
+  
