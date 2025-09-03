@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>二维码展示</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    .qr-container {
+      transition: all 0.3s ease;
+    }
+    .save-btn {
+      transition: transform 0.2s ease;
+    }
+    .save-btn:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-4">
+  <div class="max-w-md w-full bg-white rounded-xl shadow-lg overflow-hidden p-6">
+    <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">您的二维码</h1>
+    
+    <div class="qr-container bg-white p-4 rounded-lg border border-gray-200 mb-6 flex flex-col items-center">
+      <div id="qr-code" class="w-64 h-64 mb-4 flex items-center justify-center">
+        <!-- 这里将动态生成二维码 -->
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://example.com" 
+             alt="生成的二维码" class="w-full h-full">
+      </div>
+      <p class="text-gray-600 text-sm text-center mb-4">扫描此二维码访问内容</p>
+    </div>
+
+    <div class="flex flex-col space-y-4">
+      <button id="save-btn" class="save-btn bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg flex items-center justify-center">
+        <i class="fas fa-download mr-2"></i>
+        保存二维码
+      </button>
+      
+      <button id="share-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-4 rounded-lg flex items-center justify-center">
+        <i class="fas fa-share-alt mr-2"></i>
+        分享二维码
+      </button>
+    </div>
+
+    <div class="mt-8 text-center text-gray-500 text-xs">
+      <p>二维码有效期至 2025/12/31</p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('save-btn').addEventListener('click', function() {
+      // 创建虚拟链接下载二维码
+      const qrImg = document.querySelector('#qr-code img');
+      const link = document.createElement('a');
+      link.href = qrImg.src;
+      link.download = 'my-qr-code.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // 添加保存成功反馈
+      const btn = this;
+      btn.innerHTML = '<i class="fas fa-check mr-2"></i>已保存';
+      btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+      btn.classList.add('bg-green-500', 'hover:bg-green-600');
+      
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fas fa-download mr-2"></i>保存二维码';
+        btn.classList.remove('bg-green-500', 'hover:bg-green-600');
+        btn.classList.add('bg-blue-600', 'hover:bg-blue-700');
+      }, 2000);
+    });
+
+    document.getElementById('share-btn').addEventListener('click', function() {
+      if (navigator.share) {
+        navigator.share({
+          title: '我的二维码',
+          text: '扫描这个二维码访问内容',
+          url: 'https://example.com'
+        }).catch(err => {
+          console.log('分享失败:', err);
+        });
+      } else {
+        alert('您的浏览器不支持原生分享功能，请手动复制链接分享。');
+      }
+    });
+  </script>
+</body>
+</html>
+  

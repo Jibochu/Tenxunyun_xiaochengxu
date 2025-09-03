@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // @ts-ignore;
 import { Button, useToast } from '@/components/ui';
 // @ts-ignore;
-import { Wifi, Eye, EyeOff, ExternalLink, Loader2 } from 'lucide-react';
+import { Download, Share2, Check, Wifi, ExternalLink, EyeOff, Eye, Loader2 } from 'lucide-react';
 
 export default function CombinedPage(props) {
   const {
@@ -17,6 +17,7 @@ export default function CombinedPage(props) {
   const [isConnected, setIsConnected] = useState(false);
   const [qrType, setQrType] = useState('网址链接');
   const [qrContent, setQrContent] = useState('https://example.com/special-offer');
+  const [isSaved, setIsSaved] = useState(false);
 
   // 从URL参数获取二维码信息
   useEffect(() => {
@@ -28,8 +29,6 @@ export default function CombinedPage(props) {
   }, []);
   const handleConnectWifi = () => {
     setIsConnecting(true);
-
-    // 模拟连接过程
     setTimeout(() => {
       setIsConnecting(false);
       setIsConnected(true);
@@ -48,6 +47,17 @@ export default function CombinedPage(props) {
         description: qrContent
       });
     }
+  };
+  const handleSaveQrCode = () => {
+    // 模拟保存过程
+    setIsSaved(true);
+    toast({
+      title: '保存成功',
+      description: '二维码已保存到相册'
+    });
+    setTimeout(() => {
+      setIsSaved(false);
+    }, 2000);
   };
   return <div className="flex h-[90vh] bg-gray-100">
       {/* 左侧广告区 (30%) */}
@@ -114,29 +124,49 @@ export default function CombinedPage(props) {
           </div>
         </div>
 
-        {/* 二维码内容卡片 */}
+        {/* 二维码展示卡片 */}
         <div className="bg-white rounded-xl shadow-md p-6">
           <div className="flex items-center mb-4">
             <div className="bg-green-100 p-3 rounded-full mr-4">
               <Wifi className="text-green-500" size={20} />
             </div>
-            <h2 className="text-xl font-bold">二维码内容</h2>
+            <h2 className="text-xl font-bold">二维码</h2>
           </div>
           
-          <div className="space-y-4">
-            <div>
-              <p className="text-gray-500 text-sm">类型</p>
-              <p className="font-medium">{qrType}</p>
+          <div className="flex flex-col items-center mb-6">
+            <div className="w-64 h-64 bg-white p-2 border border-gray-200 rounded-lg mb-4 flex items-center justify-center">
+              <img src={`https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodeURIComponent(qrContent)}`} alt="生成的二维码" className="w-full h-full" />
             </div>
+            <p className="text-sm text-gray-500 mb-4">扫码后将显示广告和原功能</p>
+          </div>
+
+          <div className="flex space-x-4">
+            <Button className="flex-1" onClick={handleSaveQrCode} disabled={isSaved}>
+              {isSaved ? <>
+                  <Check className="mr-2 h-4 w-4" />
+                  已保存
+                </> : <>
+                  <Download className="mr-2 h-4 w-4" />
+                  保存二维码
+                </>}
+            </Button>
             
-            <div>
-              <p className="text-gray-500 text-sm">内容</p>
-              <p className="font-medium break-all">{qrContent}</p>
-            </div>
-            
-            <Button className="w-full mt-4 bg-green-500 hover:bg-green-600" onClick={handleOpenContent}>
-              <ExternalLink className="mr-2 h-4 w-4" />
-              {qrType === '网址链接' ? '打开链接' : '查看内容'}
+            <Button className="flex-1" variant="outline" onClick={() => {
+            if (navigator.share) {
+              navigator.share({
+                title: '我的二维码',
+                text: '扫描这个二维码访问内容',
+                url: qrContent
+              });
+            } else {
+              toast({
+                title: '分享',
+                description: '请手动复制链接分享: ' + qrContent
+              });
+            }
+          }}>
+              <Share2 className="mr-2 h-4 w-4" />
+              分享
             </Button>
           </div>
         </div>
