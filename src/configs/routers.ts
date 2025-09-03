@@ -1,12 +1,8 @@
-import INDEX from '../pages/index.jsx';
-import AD_PAGE from '../pages/ad-page.jsx';
+import QR_GENERATOR from '../pages/qr-generator.jsx';
 import COMBINED from '../pages/combined.jsx';
 export const routers = [{
-  id: "index",
-  component: INDEX
-}, {
-  id: "ad-page",
-  component: AD_PAGE
+  id: "qr-generator",
+  component: QR_GENERATOR
 }, {
   id: "combined",
   component: COMBINED

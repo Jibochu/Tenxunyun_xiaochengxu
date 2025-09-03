@@ -4,19 +4,28 @@
       "_id": "1",
       "codeId": "QR001",
       "type": "WiFi",
-      "originalContent": "WIFI:S:MyWiFi;T:WPA;P:12345678;;",
-      "createTime": 1756913692961,
-      "createdAt": 1756913692961,
-      "updatedAt": 1756913692961
+      "originalContent": "WIFI:T:WPA;S:MyWiFi;P:mypassword;",
+      "createTime": 1756914973989,
+      "createdAt": 1756914973989,
+      "updatedAt": 1756914973989
     },
     {
       "_id": "2",
       "codeId": "QR002",
       "type": "URL",
       "originalContent": "https://example.com",
-      "createTime": 1756913692962,
-      "createdAt": 1756913692962,
-      "updatedAt": 1756913692962
+      "createTime": 1756914973990,
+      "createdAt": 1756914973990,
+      "updatedAt": 1756914973990
+    },
+    {
+      "_id": "3",
+      "codeId": "QR003",
+      "type": "Payment",
+      "originalContent": "PAYMENT:1234567890",
+      "createTime": 1756914973991,
+      "createdAt": 1756914973991,
+      "updatedAt": 1756914973991
     }
   ]
   

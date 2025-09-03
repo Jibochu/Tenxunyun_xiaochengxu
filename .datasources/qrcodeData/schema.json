@@ -10,7 +10,7 @@
       },
       {
         "name": "type",
-        "title": "类型",
+        "title": "二维码类型",
         "type": "String"
       },
       {
